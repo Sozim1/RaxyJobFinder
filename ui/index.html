@@ -1037,7 +1037,19 @@
 
 <script>
   /* ─── Config ─────────────────────────────────────────────────── */
-  const API_BASE = window.ENV?.API_BASE || 'http://localhost:8001';
+  let API_BASE = 'http://localhost:8001'; // fallback local dev
+
+  // Busca a URL real da API via Vercel Serverless Function
+  (async () => {
+    try {
+      const r = await fetch('/api/config');
+      if (r.ok) {
+        const cfg = await r.json();
+        if (cfg.apiBase) API_BASE = cfg.apiBase.replace(/\/+$/, '');
+        console.log('[config] API_BASE =', API_BASE);
+      }
+    } catch { /* local dev — usa fallback */ }
+  })();
 
   /* ─── Estado ─────────────────────────────────────────────────── */
   let currentPortal = 'linkedin';

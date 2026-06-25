@@ -1037,13 +1037,13 @@
 
 <script>
   /* ─── Config ─────────────────────────────────────────────────── */
-  const API_BASE = 'http://localhost:8000';   // ajuste se a API rodar em outra porta/host
+  const API_BASE = window.ENV?.API_BASE || 'http://localhost:8001';
 
   /* ─── Estado ─────────────────────────────────────────────────── */
   let currentPortal = 'linkedin';
-  let allJobs       = [];
-  let activeFilter  = 'all';
-  let isRunning     = false;
+  let allJobs = [];
+  let activeFilter = 'all';
+  let isRunning = false;
   let currentSSE    = null;   // EventSource ativo
 
   /* ─── Sidebar helpers ────────────────────────────────────────── */

@@ -12,3 +12,6 @@ logs/
 /dump.rdb
 /out.json
 /path
+.agents/
+skills-lock.json
+.qwen

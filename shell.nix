@@ -32,7 +32,7 @@ pkgs.mkShell {
     export PATH="$VIRTUAL_ENV/bin:$PATH"
     VENV_PYTHON="$VIRTUAL_ENV/bin/python"
 
-    "$VENV_PYTHON" - <<'PY' >/dev/null 2>&1 || "$VENV_PYTHON" -m pip install --upgrade botasaurus dependency-injector beautifulsoup4 prompt_toolkit PyYAML loguru redis
+    "$VENV_PYTHON" - <<'PY' >/dev/null 2>&1 || "$VENV_PYTHON" -m pip install --upgrade botasaurus dependency-injector beautifulsoup4 prompt_toolkit PyYAML loguru redis fastapi 'uvicorn[standard]' pydantic httpx
 import botasaurus
 import dependency_injector
 import bs4
@@ -40,6 +40,10 @@ import prompt_toolkit
 import yaml
 import loguru
 import redis
+import fastapi
+import uvicorn
+import pydantic
+import httpx
 PY
 
     if command -v xray >/dev/null 2>&1; then
@@ -81,11 +85,5 @@ PY
       echo "Aviso: xray/v2ray nao encontrado. Configure XRAY_PATH manualmente."
     fi
 
-    if ! redis-cli ping >/dev/null 2>&1; then
-      redis-server --daemonize yes --port 6379 2>/dev/null
-      echo "Redis iniciado em localhost:6379"
-    else
-      echo "Redis ja esta rodando"
-    fi
-  '';
+      '';
 }
